@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poppins', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f3e8fd;
+        background-image: linear-gradient(135deg, #f3e8fd 0%, #e0c3fc 100%);
+        overflow: hidden;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      body.dark-mode {
+        background-color: #121212;
+        background-image: none;
+        color: #ffffff;
+      }
+      .container {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .dark-mode .container {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+      }
+      h1 {
+        color: #6200ee;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 2.5rem;
+      }
+      .dark-mode h1 {
+        color: #bb86fc;
+      }
+      button {
+        width: 100%;
+        padding: 14px;
+        background-color: #6200ee;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+      }
+      .dark-mode button {
+        background-color: #bb86fc;
+        color: #000000;
+      }
+      button:hover {
+        background-color: #3700b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(98, 0, 238, 0.3);
+      }
+      .dark-mode button:hover {
+        background-color: #9966cc;
+        box-shadow: 0 4px 10px rgba(187, 134, 252, 0.3);
+      }
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #6200ee;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .dark-mode .theme-toggle {
+        background-color: #bb86fc;
+        color: #000000;
+      }
+      .welcome-image {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 20px;
+        border-radius: 8px;
+        transition: opacity 0.3s ease;
+      }
+      .welcome-image.hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="theme-toggle" id="theme-toggle">🌙</button>
+    <div class="container">
+      <img src="https://picsum.photos/400/200?random=1" alt="Welcome" class="welcome-image" id="light-image">
+      <img src="https://picsum.photos/400/200?random=2" alt="Welcome" class="welcome-image hidden" id="dark-image">
+      <h1 id="welcome-message"></h1>
+      <button id="logout-btn">Logout</button>
+    </div>
+
+    <script>
+      const username = localStorage.getItem("username");
+      if (!username) {
+        window.location.href = "login.html";
+      } else {
+        const welcomeMessage = document.getElementById("welcome-message");
+        welcomeMessage.textContent = `Welcome, ${username}!`;
+      }
+
+      const logoutBtn = document.getElementById("logout-btn");
+      logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("username");
+        window.location.href = "login.html";
+      });
+
+      const themeToggle = document.getElementById("theme-toggle");
+      const body = document.body;
+      const lightImage = document.getElementById("light-image");
+      const darkImage = document.getElementById("dark-image");
+
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        themeToggle.textContent = body.classList.contains("dark-mode") ? "☀️" : "🌙";
+        lightImage.classList.toggle("hidden");
+        darkImage.classList.toggle("hidden");
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poppins', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f3e8fd;
+        background-image: linear-gradient(135deg, #f3e8fd 0%, #e0c3fc 100%);
+        overflow: hidden;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      body.dark-mode {
+        background-color: #121212;
+        background-image: none;
+        color: #ffffff;
+      }
+      .container {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        max-height: 80vh;
+        overflow-y: auto;
+        position: relative;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .dark-mode .container {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+      }
+      .container::-webkit-scrollbar {
+        display: none;
+      }
+      h1 {
+        color: #6200ee;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 2.5rem;
+      }
+      .dark-mode h1 {
+        color: #bb86fc;
+      }
+      label {
+        display: block;
+        margin: 15px 0 5px;
+        color: #555;
+        font-weight: 300;
+      }
+      .dark-mode label {
+        color: #bb86fc;
+      }
+      input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-family: 'Poppins', Arial, sans-serif;
+        transition: all 0.3s ease;
+      }
+      .dark-mode input {
+        background-color: #2c2c2c;
+        border-color: #444;
+        color: #ffffff;
+      }
+      input:focus {
+        outline: none;
+        border-color: #6200ee;
+        box-shadow: 0 0 0 3px rgba(98, 0, 238, 0.2);
+      }
+      .dark-mode input:focus {
+        border-color: #bb86fc;
+        box-shadow: 0 0 0 3px rgba(187, 134, 252, 0.2);
+      }
+      button {
+        width: 100%;
+        padding: 14px;
+        background-color: #6200ee;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+      }
+      .dark-mode button {
+        background-color: #bb86fc;
+        color: #000000;
+      }
+      button:hover {
+        background-color: #3700b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(98, 0, 238, 0.3);
+      }
+      .dark-mode button:hover {
+        background-color: #9966cc;
+        box-shadow: 0 4px 10px rgba(187, 134, 252, 0.3);
+      }
+      .message {
+        margin-top: 20px;
+        font-weight: 400;
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+      }
+      .error {
+        background-color: #ffebee;
+        color: #d32f2f;
+      }
+      .dark-mode .error {
+        background-color: #4a0000;
+        color: #ff8a80;
+      }
+      .success {
+        background-color: #e8f5e9;
+        color: #388e3c;
+      }
+      .dark-mode .success {
+        background-color: #003300;
+        color: #69f0ae;
+      }
+      a {
+        display: block;
+        margin-top: 25px;
+        text-align: center;
+        color: #6200ee;
+        text-decoration: none;
+        font-weight: 400;
+        transition: all 0.3s ease;
+      }
+      .dark-mode a {
+        color: #bb86fc;
+      }
+      a:hover {
+        color: #3700b3;
+        text-decoration: underline;
+      }
+      .dark-mode a:hover {
+        color: #9966cc;
+      }
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #6200ee;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .dark-mode .theme-toggle {
+        background-color: #bb86fc;
+        color: #000000;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="theme-toggle" id="theme-toggle">🌙</button>
+    <div class="container">
+      <h1>Register</h1>
+      <form id="register-form">
+        <label for="register-username">Username</label>
+        <input
+          type="text"
+          id="register-username"
+          name="register-username"
+          placeholder="Enter username"
+          minlength="4"
+          maxlength="50"
+          required
+        />
+
+        <label for="register-password">Password</label>
+        <input
+          type="password"
+          id="register-password"
+          name="register-password"
+          placeholder="Enter password"
+          minlength="4"
+          maxlength="16"
+          required
+        />
+
+        <label for="confirm-password">Confirm Password</label>
+        <input
+          type="password"
+          id="confirm-password"
+          name="confirm-password"
+          placeholder="Re-enter password"
+          required
+        />
+
+        <label for="college-name">College Name</label>
+        <input
+          type="text"
+          id="college-name"
+          name="college-name"
+          placeholder="Enter your college name"
+          required
+        />
+
+        <label for="mobile-number">Mobile Number</label>
+        <input
+          type="tel"
+          id="mobile-number"
+          name="mobile-number"
+          placeholder="Enter your mobile number"
+          pattern="[0-9]{10}"
+          required
+        />
+
+        <label for="dob">Date of Birth</label>
+        <input
+          type="date"
+          id="dob"
+          name="dob"
+          required
+        />
+
+        <label for="country">Country</label>
+        <input
+          type="text"
+          id="country"
+          name="country"
+          placeholder="Enter your country"
+          required
+        />
+
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter your email address"
+          required
+        />
+
+        <label for="roll-number">Roll Number</label>
+        <input
+          type="text"
+          id="roll-number"
+          name="roll-number"
+          placeholder="Enter your roll number"
+          pattern="[0-9]+"
+          required
+        />
+
+        <button type="submit">Register</button>
+      </form>
+
+      <div id="register-message" class="message"></div>
+
+      <a href="login.html">Already have an account? Login here</a>
+    </div>
+
+    <script>
+      const registerForm = document.getElementById("register-form");
+      const registerMessage = document.getElementById("register-message");
+      const themeToggle = document.getElementById("theme-toggle");
+      const body = document.body;
+
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        themeToggle.textContent = body.classList.contains("dark-mode") ? "☀️" : "🌙";
+      });
+
+      registerForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        registerMessage.textContent = "";
+
+        const formData = new FormData(registerForm);
+        const data = Object.fromEntries(formData);
+
+        if (data["register-password"] !== data["confirm-password"]) {
+          registerMessage.textContent = "Passwords do not match!";
+          registerMessage.className = "message error";
+          return;
+        }
+
+        try {
+          const response = await fetch("/register", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          const result = await response.json();
+          if (response.ok) {
+            registerMessage.textContent = result.message;
+            registerMessage.className = "message success";
+            setTimeout(() => {
+              window.location.href = "login.html";
+            }, 1000);
+          } else {
+            registerMessage.textContent = result.message;
+            registerMessage.className = "message error";
+          }
+        } catch (error) {
+          console.error("Error during registration:", error);
+          registerMessage.textContent = "An error occurred.";
+          registerMessage.className = "message error";
+        }
+      });
+    </script>
+  </body>
+</html>

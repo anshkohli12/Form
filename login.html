@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Poppins', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f3e8fd;
+        background-image: linear-gradient(135deg, #f3e8fd 0%, #e0c3fc 100%);
+        overflow: hidden;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      body.dark-mode {
+        background-color: #121212;
+        background-image: none;
+        color: #ffffff;
+      }
+      .container {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        position: relative;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      .dark-mode .container {
+        background-color: #1e1e1e;
+        color: #ffffff;
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+      }
+      h1 {
+        color: #6200ee;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 2.5rem;
+      }
+      .dark-mode h1 {
+        color: #bb86fc;
+      }
+      label {
+        display: block;
+        margin: 15px 0 5px;
+        color: #555;
+        font-weight: 300;
+      }
+      .dark-mode label {
+        color: #bb86fc;
+      }
+      input {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-sizing: border-box;
+        font-family: 'Poppins', Arial, sans-serif;
+        transition: all 0.3s ease;
+      }
+      .dark-mode input {
+        background-color: #2c2c2c;
+        border-color: #444;
+        color: #ffffff;
+      }
+      input:focus {
+        outline: none;
+        border-color: #6200ee;
+        box-shadow: 0 0 0 3px rgba(98, 0, 238, 0.2);
+      }
+      .dark-mode input:focus {
+        border-color: #bb86fc;
+        box-shadow: 0 0 0 3px rgba(187, 134, 252, 0.2);
+      }
+      button {
+        width: 100%;
+        padding: 14px;
+        background-color: #6200ee;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+      }
+      .dark-mode button {
+        background-color: #bb86fc;
+        color: #000000;
+      }
+      button:hover {
+        background-color: #3700b3;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(98, 0, 238, 0.3);
+      }
+      .dark-mode button:hover {
+        background-color: #9966cc;
+        box-shadow: 0 4px 10px rgba(187, 134, 252, 0.3);
+      }
+      .message {
+        margin-top: 20px;
+        font-weight: 400;
+        text-align: center;
+        padding: 10px;
+        border-radius: 8px;
+      }
+      .error {
+        background-color: #ffebee;
+        color: #d32f2f;
+      }
+      .dark-mode .error {
+        background-color: #4a0000;
+        color: #ff8a80;
+      }
+      .success {
+        background-color: #e8f5e9;
+        color: #388e3c;
+      }
+      .dark-mode .success {
+        background-color: #003300;
+        color: #69f0ae;
+      }
+      a {
+        display: block;
+        margin-top: 25px;
+        text-align: center;
+        color: #6200ee;
+        text-decoration: none;
+        font-weight: 400;
+        transition: all 0.3s ease;
+      }
+      .dark-mode a {
+        color: #bb86fc;
+      }
+      a:hover {
+        color: #3700b3;
+        text-decoration: underline;
+      }
+      .dark-mode a:hover {
+        color: #9966cc;
+      }
+      .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background-color: #6200ee;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .dark-mode .theme-toggle {
+        background-color: #bb86fc;
+        color: #000000;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="theme-toggle" id="theme-toggle">🌙</button>
+    <div class="container">
+      <h1>Login</h1>
+      <form id="login-form">
+        <label for="login-username">Username</label>
+        <input
+          type="text"
+          id="login-username"
+          name="login-username"
+          placeholder="Enter username"
+          required
+        />
+
+        <label for="login-password">Password</label>
+        <input
+          type="password"
+          id="login-password"
+          name="login-password"
+          placeholder="Enter password"
+          required
+        />
+
+        <button type="submit">Login</button>
+      </form>
+
+      <div id="login-message" class="message"></div>
+
+      <a href="register.html">Don't have an account? Register here</a>
+    </div>
+
+    <script>
+      const loginForm = document.getElementById("login-form");
+      const loginMessage = document.getElementById("login-message");
+      const themeToggle = document.getElementById("theme-toggle");
+      const body = document.body;
+
+      themeToggle.addEventListener("click", () => {
+        body.classList.toggle("dark-mode");
+        themeToggle.textContent = body.classList.contains("dark-mode") ? "☀️" : "🌙";
+      });
+
+      loginForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        loginMessage.textContent = "";
+
+        const username = document.getElementById("login-username").value;
+        const password = document.getElementById("login-password").value;
+
+        try {
+          const response = await fetch("/login", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ username, password }),
+          });
+
+          const data = await response.json();
+          if (response.ok) {
+            loginMessage.textContent = data.message;
+            loginMessage.className = "message success";
+
+            localStorage.setItem("username", username);
+
+            setTimeout(() => {
+              window.location.href = "welcome.html";
+            }, 1500);
+          } else {
+            loginMessage.textContent = data.message;
+            loginMessage.className = "message error";
+          }
+        } catch (error) {
+          console.error("Error during login:", error);
+          loginMessage.textContent = "An error occurred.";
+          loginMessage.className = "message error";
+        }
+      });
+    </script>
+  </body>
+</html>
